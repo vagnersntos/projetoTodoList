@@ -1,0 +1,51 @@
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Gerenciamento tarefas</li>
+  </ol>
+</nav>
+<div class="container">
+
+  <div class="card">
+    <h5 class="card-header">Adicionar/Atualizar Tarefas</h5>
+    <div class="card-body">
+        <form id="add-form" #formulario="ngForm" (ngSubmit)="formulario.form.valid && save(formulario)" >
+          <div class="form-group">
+              <label for="model">Tarefas</label>
+              <input type="text" [(ngModel)]="Tarefa.tarefa" id="model" name="model" #model="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': formulario.submitted && model.invalid }" placeholder="Digite a tarefa">
+              <div *ngIf="formulario.submitted && model.invalid" class="invalid-feedback">
+                  <div *ngIf="model.errors?.['required']">tarefa é obrigatório</div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-add-car">Salvar</button>&nbsp;
+            <button type="reset" class="btn btn-secondary btn-add-car ml-1" (click)="cleanForm(formulario)">Limpar</button>
+        </form>
+    </div>
+
+  </div>
+  <br/>
+  <div class="card">
+    <h5 class="card-header">Lista de Tarefas</h5>
+    <div class="card-body">
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Tarefas</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tarefa of Tarefas">
+              <td>{{tarefa.id}}</td>
+              <td>{{tarefa.tarefa}}</td>
+              <td>
+                <button type="button" class="btn btn-outline-warning btn-sm" (click)="edit(tarefa)">Editar</button>
+                <button type="button" class="btn btn-outline-danger btn-sm ml-1" (click)="delet(tarefa)">Deletar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
